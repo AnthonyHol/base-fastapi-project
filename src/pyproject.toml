@@ -23,6 +23,7 @@ loguru = "^0.7.0"
 authlib = "^1.2.1"
 itsdangerous = "^2.1.2"
 pytz = "^2024.2"
+aioboto3 = "^13.2.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.7"
@@ -34,6 +35,7 @@ pytest-mock = "^3.14.0"
 pytest-repeat = "^0.9.3"
 types-redis = "^4.6.0.0"
 types-pytz = "^2024.1.0.20240417"
+types-aiofiles = "^24.1.0.20240626"
 
 
 [build-system]

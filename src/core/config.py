@@ -5,6 +5,8 @@ import pathlib
 from loguru import logger
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from core.enum import FileStorageEnum
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file="./core/.env")
@@ -22,13 +24,15 @@ class Settings(BaseSettings):
 
     REDIS_DSN: str = "redis://localhost:6379"
 
+    FILE_STORAGE_TYPE: FileStorageEnum = FileStorageEnum.S3
+    STORAGE_FILE_PATH: str = "base/dir/"
+    PRESIGNED_FILE_URL_EXPIRATION_TIME: int = 3600
+
     S3_DSN: str = "http://localhost:9000"
     S3_ACCESS_KEY_ID: str = "base"
     S3_SECRET_ACCESS_KEY: str = "base"
     S3_REGION_NAME: str = "eu-central-1"
     S3_BUCKET_NAME: str = "base"
-    STORAGE_FILE_PATH: str = "base/dir/"
-    PRESIGNED_FILE_URL_EXPIRATION_TIME: int = 3600
 
     SESSION_MIDDLEWARE_SECRET: str = "secret"
 
