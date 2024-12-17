@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     S3_SECRET_ACCESS_KEY: str = "base"
     S3_REGION_NAME: str = "eu-central-1"
     S3_BUCKET_NAME: str = "base"
+    STORAGE_FILE_PATH: str = "base/dir/"
+    PRESIGNED_FILE_URL_EXPIRATION_TIME: int = 3600
 
     SESSION_MIDDLEWARE_SECRET: str = "secret"
 

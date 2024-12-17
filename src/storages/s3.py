@@ -34,9 +34,7 @@ class S3Storage:
         if key is None:
             return None
 
-        return get_updated_path_depending_on_os(
-            os.path.join(os.path.join(self._storage_dsn, settings().POSTS_IMAGES_STORAGE_PATH), key)
-        )
+        return get_updated_path_depending_on_os(os.path.join(self._storage_dsn, key))
 
     async def upload_file(self, key: str | None, data: bytes, content_type: str | None) -> str | None:
         """

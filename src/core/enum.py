@@ -13,5 +13,3 @@ class DegreeEnum(str, Enum):
     HUSBAND = "Husband"
     WIFE = "Wife"
 """
-
-

@@ -10,4 +10,3 @@ resource_not_found_exception = HTTPException(
     detail="Resource not found."
 )
 """
-

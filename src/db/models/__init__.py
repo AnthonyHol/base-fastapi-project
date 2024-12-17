@@ -16,10 +16,7 @@ class SomeModel(BaseModel):
         return f"Some model #{self.id}"
 """
 
-__all__ = (
-    "BaseModel",
-)
+__all__ = ("BaseModel",)
 
 
 from db.models.base import BaseModel
-

@@ -17,7 +17,6 @@ class CreatedAtMixin(BaseModel):
         return v.astimezone(moscow_timezone)
 
 
-
 class UpdatedAtMixin(BaseModel):
     updated_at: datetime
 

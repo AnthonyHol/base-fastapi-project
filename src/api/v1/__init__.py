@@ -13,4 +13,3 @@ async def get_resources(
 ) -> Resource:
     return await resource_service.get_all()
 """
-

@@ -16,13 +16,6 @@ from db.session import get_engine
 from main import app
 from tests.utils.db import create_database, database_exists, drop_database
 
-__all__ = (
-    "resume_with_career_histories_without_ids",
-    "mock_fetch_data_from_user_info_api",
-    "mock_fetch_no_relatives_data_from_user_info_api",
-    "mock_fetch_no_courses_data_from_user_info_api",
-)
-
 pytestmark = pytest.mark.asyncio
 
 
