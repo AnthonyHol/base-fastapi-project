@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    container_name: api
+    working_dir: /usr/src/app/src
+    restart: on-failure
+    env_file:
+      - ./src/core/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs:/usr/src/app/logs
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
