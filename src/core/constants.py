@@ -1,3 +1,1 @@
-import pytz
-
-moscow_timezone = pytz.timezone("Europe/Moscow")
+"""File for describing constants."""

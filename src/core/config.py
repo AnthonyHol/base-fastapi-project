@@ -4,6 +4,8 @@ import pathlib
 
 from loguru import logger
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pytz.tzinfo import DstTzInfo, StaticTzInfo
+from pytz import timezone
 
 from core.enum import FileStorageEnum
 
@@ -12,6 +14,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file="./core/.env")
 
     BASE_DIR: pathlib.Path = pathlib.Path(__file__).resolve().parent.parent
+    MOSCOW_TZ: StaticTzInfo | DstTzInfo = timezone("Europe/Moscow")  # type: ignore
     ENVIRONMENT: str = "local"
 
     CORS_ALLOW_ORIGIN_LIST: str = "*"

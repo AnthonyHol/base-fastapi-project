@@ -1,14 +1,7 @@
 import os
-import platform
 
 from core.config import settings
-
-
-def get_updated_path_depending_on_os(path: str) -> str:
-    if platform.system() == "Windows":
-        return path.replace("\\", "/")
-    else:
-        return path
+from storages.utils import get_updated_path_depending_on_os
 
 
 class BaseStorage:
