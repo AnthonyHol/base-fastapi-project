@@ -2,7 +2,7 @@
 Directory for unit and integration tests.
 
 Test example:
-/src/tests/users/test_integration/test_get_all_users.py
+/tests/users/test_integration/test_get_all_users.py
 
 import pytest
 import random
