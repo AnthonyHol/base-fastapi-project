@@ -1,6 +1,7 @@
 import os
 
 import aiofiles
+import aiofiles.os
 from loguru import logger
 
 from core.config import settings
@@ -20,7 +21,7 @@ class FileSystemStorage(BaseStorage):
             return False
 
         try:
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            await aiofiles.os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
             async with aiofiles.open(file_path, 'wb') as file:
                 await file.write(data)
@@ -41,7 +42,7 @@ class FileSystemStorage(BaseStorage):
             return False
 
         try:
-            os.remove(file_path)
+            await aiofiles.os.remove(file_path)
             return True
 
         except FileNotFoundError:
