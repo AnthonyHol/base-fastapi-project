@@ -1,7 +1,7 @@
 import os
 
 from core.config import settings
-from storages.utils import get_updated_path_depending_on_os
+from storages.paths import get_updated_path_depending_on_os
 
 
 class BaseStorage:
@@ -60,15 +60,15 @@ class BaseStorage:
     async def generate_presigned_url(
         self,
         key: str | None,
-        method: str = "get_object",
-        expires_in: int = settings().PRESIGNED_FILE_URL_EXPIRATION_TIME,
+        method: str = 'get_object',
+        expires_in: int | None = None,
     ) -> str | None:
         """
         Generate a signed url to the file.
 
         :param key: the key of the file in the repository.
         :param method: the method for which the url is generated.
-        :param expires_in: the value of the link lifetime in seconds.
+        :param expires_in: the value of the link lifetime in seconds (default: PRESIGNED_FILE_URL_EXPIRATION_TIME).
         :return: the signed url to the file.
         """
         raise NotImplementedError

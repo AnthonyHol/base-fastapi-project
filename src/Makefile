@@ -2,15 +2,16 @@
 # example: make lint
 lint:
 	@echo "Lint project"
-	poetry run ruff format . --check
-	poetry run ruff check
-	poetry run mypy . --explicit-package-bases
+	uv run ruff format . --check
+	uv run ruff check
+	uv run mypy . --explicit-package-bases
+	uv run bandit -c pyproject.toml -r . -x ./.venv
 
 fix:
 	@echo "Fix project"
-	poetry run ruff format .
-	poetry run ruff check . --fix
+	uv run ruff format .
+	uv run ruff check . --fix
 
 test:
 	@echo "Run tests for Project"
-	poetry run pytest
+	uv run pytest

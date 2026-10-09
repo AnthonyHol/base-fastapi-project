@@ -1,6 +1,6 @@
 # Base FastAPI Project
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Poetry](https://img.shields.io/badge/Poetry-%233B82F6.svg?style=for-the-badge&logo=poetry&logoColor=0B3D8D)
+![uv](https://img.shields.io/badge/uv-%23DE5FE9.svg?style=for-the-badge&logo=uv&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
@@ -15,19 +15,19 @@ Project with the basic structure of the FastAPI application
 docker-compose up -d --build
 ```
 
-#### Install poetry
+#### Install uv
 ```shell
-pip install poetry
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 #### Install the project dependencies
 ```shell
-cd src && poetry install
+cd src && uv sync
 ```
 
-#### Run the server using a poetry shell within the virtual environment
+#### Run the server within the virtual environment
 ```shell
-poetry run uvicorn main:app --reload
+uv run uvicorn main:app --reload
 ```
 
 ## Migrations

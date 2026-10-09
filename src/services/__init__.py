@@ -2,6 +2,8 @@
 Directory for service-based business-logic layer.
 
 Service Example:
+from typing import Annotated
+
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -14,8 +16,8 @@ from schemas.some_model import SomeModelSchema
 class SomeService:
     def __init__(
         self,
-        session: AsyncSession = Depends(get_session),
-        redis: AsyncRedis = Depends(get_redis),
+        session: Annotated[AsyncSession, Depends(get_session)],
+        redis: Annotated[AsyncRedis, Depends(get_redis)],
     ) -> None:
         self.redis = redis
         self.some_model_repository = SomeModelRepository(session=session)
@@ -25,5 +27,5 @@ class SomeService:
 
     async def get_cached_instance(instance_id: int) -> SomeModelSchema:
         raw_instance = await self.redis.get(f"some-model-key:{instance_id}")
-        return SomeModelSchema.parse_raw(raw_instance)
+        return SomeModelSchema.model_validate_json(raw_instance)
 """

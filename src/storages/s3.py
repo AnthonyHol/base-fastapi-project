@@ -1,5 +1,6 @@
 import io
 import os
+from typing import Annotated
 
 import botocore.exceptions
 from aioboto3.session import Session
@@ -7,12 +8,12 @@ from fastapi import Depends
 from loguru import logger
 
 from core.config import settings
+from storages.paths import get_updated_path_depending_on_os
 from storages.session import get_boto3_session
-from storages.utils import get_updated_path_depending_on_os
 
 
 class S3Storage:
-    def __init__(self, boto3_session: Session = Depends(get_boto3_session)) -> None:
+    def __init__(self, boto3_session: Annotated[Session, Depends(get_boto3_session)]) -> None:
         self._boto3_session = boto3_session
 
         self._s3_url = settings().S3_DSN
@@ -52,12 +53,12 @@ class S3Storage:
         content = io.BytesIO(data)
 
         try:
-            async with self._boto3_session.client("s3", endpoint_url=self._s3_url) as s3_client:
+            async with self._boto3_session.client('s3', endpoint_url=self._s3_url) as s3_client:
                 await s3_client.upload_fileobj(
                     Fileobj=content,
                     Bucket=self._s3_bucket_name,
                     Key=key,
-                    ExtraArgs={"ContentType": content_type},
+                    ExtraArgs={'ContentType': content_type},
                 )
 
             return key
@@ -78,13 +79,13 @@ class S3Storage:
             return False
 
         try:
-            async with self._boto3_session.client("s3", endpoint_url=self._s3_url) as s3_client:
+            async with self._boto3_session.client('s3', endpoint_url=self._s3_url) as s3_client:
                 await s3_client.delete_object(Bucket=self._s3_bucket_name, Key=key)
 
             return True
 
         except (botocore.exceptions.BotoCoreError, botocore.exceptions.ClientError) as e:
-            logger.error(f"Unable to delete file {key}: {e}")
+            logger.error(f'Unable to delete file {key}: {e}')
             return False
 
     async def is_file_exists(self, key: str | None) -> bool:
@@ -99,7 +100,7 @@ class S3Storage:
             return False
 
         try:
-            async with self._boto3_session.client("s3", endpoint_url=self._s3_url) as s3_client:
+            async with self._boto3_session.client('s3', endpoint_url=self._s3_url) as s3_client:
                 await s3_client.head_object(Bucket=self._s3_bucket_name, Key=key)
 
             return True
@@ -111,7 +112,7 @@ class S3Storage:
     async def generate_presigned_url(
         self,
         key: str | None,
-        method: str = "get_object",
+        method: str = 'get_object',
         expires_in: int = settings().PRESIGNED_FILE_URL_EXPIRATION_TIME,
     ) -> str | None:
         """
@@ -119,7 +120,7 @@ class S3Storage:
 
         :param key: the key of the file in the repository.
         :param method: the method for which the url is generated.
-        :param expires_in: the value of the link lifetime in seconds.
+        :param expires_in: the value of the link lifetime in seconds
         :return: the signed url to the file.
         """
 
@@ -127,9 +128,9 @@ class S3Storage:
             return None
 
         try:
-            async with self._boto3_session.client("s3", endpoint_url=self._s3_url) as s3_client:
+            async with self._boto3_session.client('s3', endpoint_url=self._s3_url) as s3_client:
                 return await s3_client.generate_presigned_url(
-                    method, Params={"Bucket": self._s3_bucket_name, "Key": key}, ExpiresIn=expires_in
+                    method, Params={'Bucket': self._s3_bucket_name, 'Key': key}, ExpiresIn=expires_in
                 )
 
         except (botocore.exceptions.BotoCoreError, botocore.exceptions.ClientError) as e:
