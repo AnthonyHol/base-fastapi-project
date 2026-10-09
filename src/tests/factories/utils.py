@@ -9,7 +9,7 @@ def get_random_str() -> str:
 
 
 def get_random_int(a: int = 1, b: int = 10) -> int:
-    return random.randint(a, b)
+    return random.randint(a, b)  # nosec B311 - test data, not cryptographic use
 
 
 def get_random_bytes() -> bytes:
@@ -26,7 +26,7 @@ def get_random_datetime(datetime_start: datetime | None = None, datetime_end: da
         raise ValueError("Начальная дата и время не могут быть позже конечной даты и времени")
 
     delta = (datetime_end - datetime_start).total_seconds()
-    random_seconds = random.randint(0, int(delta))
+    random_seconds = random.randint(0, int(delta))  # nosec B311 - test data, not cryptographic use
 
     return datetime_start + timedelta(seconds=random_seconds)
 

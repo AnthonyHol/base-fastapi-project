@@ -27,7 +27,9 @@ async def database_exists(url: str) -> bool:
         engine = get_engine(url=url_object, isolation_level="AUTOCOMMIT")
         async with engine.begin() as conn:
             try:
-                datname_exists = await conn.scalar(text(f"SELECT 1 FROM pg_database WHERE datname='{database}'"))
+                datname_exists = await conn.scalar(
+                    text("SELECT 1 FROM pg_database WHERE datname = :database").bindparams(database=database)
+                )
 
             except ProgrammingError, OperationalError:
                 datname_exists = 0
@@ -46,12 +48,14 @@ async def drop_database(url: str) -> None:
 
     engine = get_engine(url=url_object, isolation_level="AUTOCOMMIT")
     async with engine.begin() as conn:
-        disc_users = f"""
+        disc_users = text(
+            """
             SELECT pg_terminate_backend(pg_stat_activity.pid)
             FROM pg_stat_activity
-            WHERE pg_stat_activity.datname = '{database}' AND pid <> pg_backend_pid();
-        """
-        await conn.execute(text(disc_users))
+            WHERE pg_stat_activity.datname = :database AND pid <> pg_backend_pid();
+            """
+        ).bindparams(database=database)
+        await conn.execute(disc_users)
 
         await conn.execute(text(f'DROP DATABASE "{database}"'))
 

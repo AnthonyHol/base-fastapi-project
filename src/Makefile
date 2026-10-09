@@ -5,6 +5,7 @@ lint:
 	uv run ruff format . --check
 	uv run ruff check
 	uv run mypy . --explicit-package-bases
+	uv run bandit -c pyproject.toml -r . -x ./.venv
 
 fix:
 	@echo "Fix project"
