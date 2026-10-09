@@ -12,7 +12,7 @@ class BaseOrmSchema(BaseModel):
 class CreatedAtMixin(BaseModel):
     created_at: datetime
 
-    @field_validator("created_at")
+    @field_validator('created_at')
     @classmethod
     def format_created_at(cls, v: datetime) -> datetime:
         return v.astimezone(moscow_timezone)
@@ -21,7 +21,7 @@ class CreatedAtMixin(BaseModel):
 class UpdatedAtMixin(BaseModel):
     updated_at: datetime
 
-    @field_validator("updated_at")
+    @field_validator('updated_at')
     @classmethod
     def format_updated_at(cls, v: datetime) -> datetime:
         return v.astimezone(moscow_timezone)

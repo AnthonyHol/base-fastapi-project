@@ -5,14 +5,14 @@ from starlette.middleware.sessions import SessionMiddleware
 from api.router import api_router
 from core.config import settings
 
-app = FastAPI(title="Base FastAPI Project", openapi_url="/api/openapi.json", docs_url="/api/swagger", version="0.1.0")
+app = FastAPI(title='Base FastAPI Project', openapi_url='/api/openapi.json', docs_url='/api/swagger', version='0.1.0')
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings().cors_allow_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 app.include_router(api_router)

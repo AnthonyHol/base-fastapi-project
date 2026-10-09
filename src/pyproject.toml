@@ -43,6 +43,11 @@ package = false
 
 [tool.ruff]
 line-length = 120
+target-version = "py314"
+
+[tool.ruff.format]
+quote-style = "single"
+exclude = ["*.md"]
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "session"

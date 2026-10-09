@@ -60,7 +60,7 @@ class BaseStorage:
     async def generate_presigned_url(
         self,
         key: str | None,
-        method: str = "get_object",
+        method: str = 'get_object',
         expires_in: int = settings().PRESIGNED_FILE_URL_EXPIRATION_TIME,
     ) -> str | None:
         """

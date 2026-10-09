@@ -10,7 +10,7 @@ class BaseFactory(Factory[typing.Any]):
     @classmethod
     def _create(cls, model_class, *args, **kwargs) -> typing.Coroutine[typing.Any, typing.Any, BaseModel]:
         async def create_coroutine(*args, **kwargs) -> BaseModel:
-            session: AsyncSession = kwargs.pop("session")
+            session: AsyncSession = kwargs.pop('session')
             model = model_class(*args, **kwargs)
             session.add(model)
             await session.commit()

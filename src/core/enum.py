@@ -4,5 +4,5 @@ from enum import StrEnum
 
 
 class FileStorageEnum(StrEnum):
-    FILESYSTEM = "FILESYSTEM"
-    S3 = "S3"
+    FILESYSTEM = 'FILESYSTEM'
+    S3 = 'S3'

@@ -22,13 +22,13 @@ class FileSystemStorage(BaseStorage):
         try:
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-            async with aiofiles.open(file_path, "wb") as file:
+            async with aiofiles.open(file_path, 'wb') as file:
                 await file.write(data)
 
             return True
 
         except OSError as e:
-            logger.error(f"Unable to upload file {key}: {e}")
+            logger.error(f'Unable to upload file {key}: {e}')
             return False
 
     async def delete_file(self, key: str | None) -> bool:
@@ -45,11 +45,11 @@ class FileSystemStorage(BaseStorage):
             return True
 
         except FileNotFoundError:
-            logger.error(f"File {key} not found.")
+            logger.error(f'File {key} not found.')
             return False
 
         except OSError as e:
-            logger.error(f"Unable to delete file {key}: {e}")
+            logger.error(f'Unable to delete file {key}: {e}')
             return False
 
     async def is_file_exists(self, key: str | None) -> bool:
@@ -62,23 +62,23 @@ class FileSystemStorage(BaseStorage):
             return False
 
         try:
-            async with aiofiles.open(file_path, "rb"):
+            async with aiofiles.open(file_path, 'rb'):
                 pass
 
             return True
 
         except FileNotFoundError:
-            logger.error(f"File {key} not found.")
+            logger.error(f'File {key} not found.')
             return False
 
         except OSError as e:
-            logger.error(f"Unable to get head object {key}: {e}")
+            logger.error(f'Unable to get head object {key}: {e}')
             return False
 
     async def generate_presigned_url(
         self,
         key: str | None,
-        method: str = "get_object",
+        method: str = 'get_object',
         expires_in: int = settings().PRESIGNED_FILE_URL_EXPIRATION_TIME,
     ) -> str | None:
         if key is None:

@@ -8,9 +8,9 @@ from db.session import get_engine
 async def create_database(url: str) -> None:
     url_object = make_url(url)
     database = url_object.database
-    url_object = url_object.set(database="postgres")
+    url_object = url_object.set(database='postgres')
 
-    engine = get_engine(url=url_object, isolation_level="AUTOCOMMIT")
+    engine = get_engine(url=url_object, isolation_level='AUTOCOMMIT')
     async with engine.begin() as conn:
         await conn.execute(text(f'CREATE DATABASE "{database}" ENCODING "utf8"'))
 
@@ -20,15 +20,15 @@ async def create_database(url: str) -> None:
 async def database_exists(url: str) -> bool:
     url_object = make_url(url)
     database = url_object.database
-    url_object = url_object.set(database="postgres")
+    url_object = url_object.set(database='postgres')
 
     engine = None
     try:
-        engine = get_engine(url=url_object, isolation_level="AUTOCOMMIT")
+        engine = get_engine(url=url_object, isolation_level='AUTOCOMMIT')
         async with engine.begin() as conn:
             try:
                 datname_exists = await conn.scalar(
-                    text("SELECT 1 FROM pg_database WHERE datname = :database").bindparams(database=database)
+                    text('SELECT 1 FROM pg_database WHERE datname = :database').bindparams(database=database)
                 )
 
             except ProgrammingError, OperationalError:
@@ -44,9 +44,9 @@ async def database_exists(url: str) -> bool:
 async def drop_database(url: str) -> None:
     url_object = make_url(url)
     database = url_object.database
-    url_object = url_object.set(database="postgres")
+    url_object = url_object.set(database='postgres')
 
-    engine = get_engine(url=url_object, isolation_level="AUTOCOMMIT")
+    engine = get_engine(url=url_object, isolation_level='AUTOCOMMIT')
     async with engine.begin() as conn:
         disc_users = text(
             """

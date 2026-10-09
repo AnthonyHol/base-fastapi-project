@@ -23,7 +23,7 @@ def get_random_datetime(datetime_start: datetime | None = None, datetime_end: da
         datetime_end = datetime.now(tz=UTC)
 
     if datetime_start > datetime_end:
-        raise ValueError("Начальная дата и время не могут быть позже конечной даты и времени")
+        raise ValueError('Начальная дата и время не могут быть позже конечной даты и времени')
 
     delta = (datetime_end - datetime_start).total_seconds()
     random_seconds = random.randint(0, int(delta))  # nosec B311 - test data, not cryptographic use
