@@ -1,7 +1,7 @@
 import os
 
 from core.config import settings
-from storages.utils import get_updated_path_depending_on_os
+from storages.paths import get_updated_path_depending_on_os
 
 
 class BaseStorage:

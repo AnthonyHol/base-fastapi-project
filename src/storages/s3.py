@@ -8,8 +8,8 @@ from fastapi import Depends
 from loguru import logger
 
 from core.config import settings
+from storages.paths import get_updated_path_depending_on_os
 from storages.session import get_boto3_session
-from storages.utils import get_updated_path_depending_on_os
 
 
 class S3Storage:
