@@ -9,7 +9,8 @@ from storages.base import BaseStorage
 
 
 class FileSystemStorage(BaseStorage):
-    _storage_dsn = str(settings().BASE_DIR)
+    def __init__(self) -> None:
+        self._storage_dsn = str(settings().BASE_DIR)
 
     async def upload_file(self, key: str | None, data: bytes, content_type: str | None) -> bool:
         if key is None:
@@ -80,7 +81,7 @@ class FileSystemStorage(BaseStorage):
         self,
         key: str | None,
         method: str = 'get_object',
-        expires_in: int = settings().PRESIGNED_FILE_URL_EXPIRATION_TIME,
+        expires_in: int | None = None,
     ) -> str | None:
         if key is None:
             return None

@@ -1,11 +1,28 @@
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 from api.router import api_router
 from core.config import settings
+from core.logger import setup_logging
 
-app = FastAPI(title='Base FastAPI Project', openapi_url='/api/openapi.json', docs_url='/api/swagger', version='0.1.0')
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
+    setup_logging()
+    yield
+
+
+app = FastAPI(
+    lifespan=lifespan,
+    title='Base FastAPI Project',
+    openapi_url='/api/openapi.json',
+    docs_url='/api/swagger',
+    version='0.1.0',
+)
 
 app.add_middleware(
     CORSMiddleware,

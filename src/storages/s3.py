@@ -120,7 +120,7 @@ class S3Storage:
 
         :param key: the key of the file in the repository.
         :param method: the method for which the url is generated.
-        :param expires_in: the value of the link lifetime in seconds.
+        :param expires_in: the value of the link lifetime in seconds
         :return: the signed url to the file.
         """
 
