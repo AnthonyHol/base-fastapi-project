@@ -2,7 +2,6 @@ from sqlalchemy import text
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import OperationalError, ProgrammingError
 
-
 from db.session import get_engine
 
 
@@ -30,7 +29,7 @@ async def database_exists(url: str) -> bool:
             try:
                 datname_exists = await conn.scalar(text(f"SELECT 1 FROM pg_database WHERE datname='{database}'"))
 
-            except (ProgrammingError, OperationalError):
+            except ProgrammingError, OperationalError:
                 datname_exists = 0
 
         return bool(datname_exists)

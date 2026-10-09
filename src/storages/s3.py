@@ -1,5 +1,6 @@
 import io
 import os
+from typing import Annotated
 
 import botocore.exceptions
 from aioboto3.session import Session
@@ -12,7 +13,7 @@ from storages.utils import get_updated_path_depending_on_os
 
 
 class S3Storage:
-    def __init__(self, boto3_session: Session = Depends(get_boto3_session)) -> None:
+    def __init__(self, boto3_session: Annotated[Session, Depends(get_boto3_session)]) -> None:
         self._boto3_session = boto3_session
 
         self._s3_url = settings().S3_DSN

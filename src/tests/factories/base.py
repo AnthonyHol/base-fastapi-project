@@ -1,12 +1,12 @@
 import typing
 
-from factory import Factory
+from factory.base import Factory
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.models.base import BaseModel
 
 
-class BaseFactory(Factory):
+class BaseFactory(Factory[typing.Any]):
     @classmethod
     def _create(cls, model_class, *args, **kwargs) -> typing.Coroutine[typing.Any, typing.Any, BaseModel]:
         async def create_coroutine(*args, **kwargs) -> BaseModel:
@@ -20,5 +20,5 @@ class BaseFactory(Factory):
         return create_coroutine(*args, **kwargs)
 
     @classmethod
-    async def create_batch(cls, size, **kwargs) -> list[typing.Any]:
+    async def create_batch(cls, size: int, **kwargs: typing.Any) -> list[typing.Any]:  # type: ignore[override]
         return [await cls.create(**kwargs) for i in range(size)]

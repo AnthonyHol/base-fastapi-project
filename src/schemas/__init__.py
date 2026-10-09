@@ -2,13 +2,11 @@
 Directory for describing pydantic schemas.
 
 Schema example:
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
-from schemas.mixins import OrjsonConfigMixin
 
 class SomeSchema(BaseModel):
-    some_field: str
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config(OrjsonConfigMixin):
-        pass
+    some_field: str
 """

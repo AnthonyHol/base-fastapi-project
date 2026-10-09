@@ -27,7 +27,7 @@ class FileSystemStorage(BaseStorage):
 
             return True
 
-        except Exception as e:
+        except OSError as e:
             logger.error(f"Unable to upload file {key}: {e}")
             return False
 
@@ -48,7 +48,7 @@ class FileSystemStorage(BaseStorage):
             logger.error(f"File {key} not found.")
             return False
 
-        except Exception as e:
+        except OSError as e:
             logger.error(f"Unable to delete file {key}: {e}")
             return False
 
@@ -71,7 +71,7 @@ class FileSystemStorage(BaseStorage):
             logger.error(f"File {key} not found.")
             return False
 
-        except Exception as e:
+        except OSError as e:
             logger.error(f"Unable to get head object {key}: {e}")
             return False
 

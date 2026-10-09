@@ -1,23 +1,6 @@
 import inflection
 from sqlalchemy import MetaData
-from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy.orm import DeclarativeBase, declarative_mixin
-
-
-@declarative_mixin
-class BaseModel(DeclarativeBase):
-    """Base db model class."""
-
-    @declared_attr
-    def __tablename__(cls) -> str:
-        """Generate __tablename__ automatically."""
-
-        if cls.__name__[-1] == "y":
-            name = cls.__name__[:-1] + "ies"
-            return inflection.underscore(name)
-
-        return inflection.underscore(cls.__name__) + "s"
-
+from sqlalchemy.orm import DeclarativeBase, declared_attr
 
 POSTGRES_INDEXES_NAMING_CONVENTION = {
     "ix": "%(column_0_label)s_idx",
@@ -27,4 +10,18 @@ POSTGRES_INDEXES_NAMING_CONVENTION = {
     "pk": "%(table_name)s_pkey",
 }
 
-BaseModel.metadata = MetaData(naming_convention=POSTGRES_INDEXES_NAMING_CONVENTION)
+
+class BaseModel(DeclarativeBase):
+    """Base db model class."""
+
+    metadata = MetaData(naming_convention=POSTGRES_INDEXES_NAMING_CONVENTION)
+
+    @declared_attr.directive
+    def __tablename__(cls) -> str:
+        """Generate __tablename__ automatically."""
+
+        if cls.__name__[-1] == "y":
+            name = cls.__name__[:-1] + "ies"
+            return inflection.underscore(name)
+
+        return inflection.underscore(cls.__name__) + "s"
