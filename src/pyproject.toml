@@ -49,12 +49,5 @@ target-version = "py314"
 quote-style = "single"
 exclude = ["*.md"]
 
-[tool.pytest.ini_options]
-asyncio_default_fixture_loop_scope = "session"
-asyncio_default_test_loop_scope = "session"
-
 [tool.bandit]
-exclude_dirs = ["tests", ".venv"]
-
-[tool.bandit.assert_used]
-skips = ["*/tests/*", "*/test_*.py", "*/conftest.py"]
+exclude_dirs = [".venv"]
