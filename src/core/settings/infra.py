@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from core.enum import EnvironmentEnum
+
 
 class InfraSettings(BaseModel):
     POSTGRES_HOST: str = 'localhost'
@@ -18,8 +20,8 @@ class InfraSettings(BaseModel):
 
     @property
     def postgres_dsn(self) -> str:
-        environment = getattr(self, 'ENVIRONMENT', 'local')
-        database = self.POSTGRES_DB if environment != 'test' else f'{self.POSTGRES_DB}_test'
+        environment = getattr(self, 'ENVIRONMENT', EnvironmentEnum.LOCAL)
+        database = self.POSTGRES_DB if environment != EnvironmentEnum.TEST else f'{self.POSTGRES_DB}_test'
         return (
             f'postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@'
             f'{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{database}'
