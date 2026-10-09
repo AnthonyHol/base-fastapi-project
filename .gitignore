@@ -246,8 +246,6 @@ artifacts/
 # ipython:
 .ipython/
 
-# poetry
-poetry.toml
+# uv
 .venv/
 
-.python-version

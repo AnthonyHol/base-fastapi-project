@@ -1,46 +1,45 @@
-[tool.poetry]
+[project]
 name = "base-fastapi-project"
 version = "0.1.0"
 description = ""
-authors = ["Anton Kholkin <kholkin.anthony@gmail.com>"]
+authors = [{ name = "Anton Kholkin", email = "kholkin.anthony@gmail.com" }]
+requires-python = ">=3.11,<4"
 readme = "../README.md"
-package-mode = false
+dependencies = [
+    "fastapi>=0.100.0,<0.101",
+    "alembic>=1.11.1,<2",
+    "inflection>=0.5.1,<0.6",
+    "uvicorn>=0.22.0,<0.23",
+    "pydantic>=2.1.1,<3",
+    "pydantic-settings>=2.0.2,<3",
+    "sqlalchemy[mypy]>=2.0.15,<3",
+    "asyncpg>=0.27.0,<0.28",
+    "greenlet>=2.0.2,<3",
+    "httpx>=0.24.1,<0.25",
+    "python-multipart>=0.0.6,<0.0.7",
+    "loguru>=0.7.0,<0.8",
+    "authlib>=1.2.1,<2",
+    "itsdangerous>=2.1.2,<3",
+    "pytz>=2024.2,<2025",
+    "aioboto3>=13.2.0,<14",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-fastapi = "^0.100.0"
-alembic = "^1.11.1"
-inflection = "^0.5.1"
-uvicorn = "^0.22.0"
-pydantic = {extras = ["dotenv"], version = "^2.1.1"}
-pydantic-settings = "^2.0.2"
-sqlalchemy = {extras = ["mypy"], version = "^2.0.15"}
-asyncpg = "^0.27.0"
-greenlet = "^2.0.2"
-httpx = "^0.24.1"
-python-multipart = "^0.0.6"
-loguru = "^0.7.0"
-authlib = "^1.2.1"
-itsdangerous = "^2.1.2"
-pytz = "^2024.2"
-aioboto3 = "^13.2.0"
+[dependency-groups]
+dev = [
+    "ruff>=0.1.7,<0.2",
+    "bump-pydantic>=0.6.1,<0.7",
+    "pytest>=8.1.1,<9",
+    "pytest-asyncio>=0.21.0,<0.22",
+    "pytest-factoryboy>=2.5.1,<3",
+    "pytest-mock>=3.14.0,<4",
+    "pytest-repeat>=0.9.3,<0.10",
+    "types-redis>=4.6.0.0,<5",
+    "types-pytz>=2024.1.0.20240417,<2025",
+    "types-aiofiles>=24.1.0.20240626,<25",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.1.7"
-bump-pydantic = "^0.6.1"
-pytest = "^8.1.1"
-pytest-asyncio = "^0.21.0"
-pytest-factoryboy = "^2.5.1"
-pytest-mock = "^3.14.0"
-pytest-repeat = "^0.9.3"
-types-redis = "^4.6.0.0"
-types-pytz = "^2024.1.0.20240417"
-types-aiofiles = "^24.1.0.20240626"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+package = false
 
 [tool.ruff]
 line-length = 120
